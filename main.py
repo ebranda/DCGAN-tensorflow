@@ -117,36 +117,30 @@ def main(_):
     show_all_variables()
 
     if FLAGS.train:
+        
       dcgan.train(FLAGS)
-      export_dir = os.path.join(FLAGS.checkpoint_dir, 'export_b'+str(FLAGS.batch_size))
-      dcgan.save(export_dir, load_counter, ckpt=True, frozen=False)
-      export_dir = os.path.join(FLAGS.checkpoint_dir, 'frozen_b'+str(FLAGS.batch_size))
-      dcgan.save(export_dir, load_counter, ckpt=False, frozen=True)
       
-    else:
+      print("Training complete. Saving model...")
+      
       load_success, load_counter = dcgan.load(FLAGS.checkpoint_dir)
       if not load_success:
         raise Exception("Checkpoint not found in " + FLAGS.checkpoint_dir)
-
-
-    # to_json("./web/js/layers.js", [dcgan.h0_w, dcgan.h0_b, dcgan.g_bn0],
-    #                 [dcgan.h1_w, dcgan.h1_b, dcgan.g_bn1],
-    #                 [dcgan.h2_w, dcgan.h2_b, dcgan.g_bn2],
-    #                 [dcgan.h3_w, dcgan.h3_b, dcgan.g_bn3],
-    #                 [dcgan.h4_w, dcgan.h4_b, None])
-
-    # Below is codes for visualization
-      if FLAGS.export:
+    
+      if True: #if FLAGS.export:
         export_dir = os.path.join(FLAGS.checkpoint_dir, 'export_b'+str(FLAGS.batch_size))
         dcgan.save(export_dir, load_counter, ckpt=True, frozen=False)
 
-      if FLAGS.freeze:
+      if True: #if FLAGS.freeze:
         export_dir = os.path.join(FLAGS.checkpoint_dir, 'frozen_b'+str(FLAGS.batch_size))
         dcgan.save(export_dir, load_counter, ckpt=False, frozen=True)
 
-      if FLAGS.visualize:
+      if True: #if FLAGS.visualize:
         OPTION = 1
         visualize(sess, dcgan, FLAGS, OPTION, FLAGS.sample_dir)
+
+      print("Model saved.")
+      
+    else:
 
 if __name__ == '__main__':
   tf.app.run()

@@ -139,8 +139,7 @@ def main(_):
         visualize(sess, dcgan, FLAGS, OPTION, FLAGS.sample_dir)
 
       print("Model saved.")
-      
-    else:
+
 
 if __name__ == '__main__':
   tf.app.run()

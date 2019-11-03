@@ -118,6 +118,11 @@ def main(_):
 
     if FLAGS.train:
       dcgan.train(FLAGS)
+      export_dir = os.path.join(FLAGS.checkpoint_dir, 'export_b'+str(FLAGS.batch_size))
+      dcgan.save(export_dir, load_counter, ckpt=True, frozen=False)
+      export_dir = os.path.join(FLAGS.checkpoint_dir, 'frozen_b'+str(FLAGS.batch_size))
+      dcgan.save(export_dir, load_counter, ckpt=False, frozen=True)
+      
     else:
       load_success, load_counter = dcgan.load(FLAGS.checkpoint_dir)
       if not load_success:

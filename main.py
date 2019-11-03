@@ -118,23 +118,23 @@ def main(_):
 
     if FLAGS.train:
         
-      dcgan.train(FLAGS)
+      counter = dcgan.train(FLAGS)
       
       print("Training complete. Saving model...")
       
-      load_success, load_counter = dcgan.load(FLAGS.checkpoint_dir)
-      if not load_success:
-        raise Exception("Checkpoint not found in " + FLAGS.checkpoint_dir)
+      #load_success, counter = dcgan.load(FLAGS.checkpoint_dir)
+      #if not load_success:
+      #  raise Exception("Checkpoint not found in " + FLAGS.checkpoint_dir)
     
       if True: #if FLAGS.export:
         export_dir = os.path.join(FLAGS.checkpoint_dir, 'export_b'+str(FLAGS.batch_size))
-        dcgan.save(export_dir, load_counter, ckpt=True, frozen=False)
+        dcgan.save(export_dir, counter, ckpt=True, frozen=False)
 
       if True: #if FLAGS.freeze:
         export_dir = os.path.join(FLAGS.checkpoint_dir, 'frozen_b'+str(FLAGS.batch_size))
-        dcgan.save(export_dir, load_counter, ckpt=False, frozen=True)
+        dcgan.save(export_dir, counter, ckpt=False, frozen=True)
 
-      if True: #if FLAGS.visualize:
+      if False: #if FLAGS.visualize:
         OPTION = 1
         visualize(sess, dcgan, FLAGS, OPTION, FLAGS.sample_dir)
 

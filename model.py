@@ -330,6 +330,8 @@ class DCGAN(object):
         
         counter += 1
         
+    return counter
+        
   def discriminator(self, image, y=None, reuse=False):
     with tf.variable_scope("discriminator") as scope:
       if reuse:
